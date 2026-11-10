@@ -1,25 +1,54 @@
-import React from "react";
-import "../../css/Header.css";
+import React, { useState } from "react";
+import { FaBell, FaUserCircle, FaChevronDown } from "react-icons/fa";
+import "../../css/layout/Header.css";
 
-function Header({ title }) {
-  return (
-    <header className="header">
+function Header() {
 
-      <div className="header-title">
-        <h2>{title}</h2>
-      </div>
+    const [showProfile, setShowProfile] = useState(false);
 
-      <div className="header-profile">
-        <div className="profile-avatar">A</div>
+    return (
+        <header className="main-header">
 
-        <div className="profile-info">
-          <span>Admin</span>
-          <small>Administrator</small>
-        </div>
-      </div>
+            <div className="header-brand">
+                <div className="brand-logo">P</div>
 
-    </header>
-  );
+                <div className="brand-details">
+                    <h2>ProHire</h2>
+                    <p>Recruitment Workspace</p>
+                </div>
+            </div>
+
+            <div className="header-actions">
+
+                <span className="user-role">Backend Manager</span>
+
+                <button className="notification-btn">
+                    <FaBell />
+                </button>
+
+                <div className="header-profile">
+
+                    <button
+                        className="profile-btn"
+                        onClick={() => setShowProfile(!showProfile)}
+                    >
+                        <FaUserCircle />
+                        <FaChevronDown />
+                    </button>
+
+                    {showProfile && (
+                        <div className="profile-dropdown">
+                            <button>My Profile</button>
+                            <button>Logout</button>
+                        </div>
+                    )}
+
+                </div>
+
+            </div>
+
+        </header>
+    );
 }
 
 export default Header;

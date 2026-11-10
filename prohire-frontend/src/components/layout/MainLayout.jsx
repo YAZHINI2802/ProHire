@@ -1,26 +1,27 @@
+
 import React from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import "../../css/MainLayout.css";
+import "../../css/layout/MainLayout.css";
 
-function MainLayout({ title, children }) {
-  return (
-    <div className="main-layout">
+function MainLayout({ children }) {
+    return (
+        <div className="main-layout">
 
-      <Sidebar />
+            <Header />
 
-      <div className="main-content">
+            <div className="main-layout-content">
 
-        <Header title={title} />
+                <Sidebar />
 
-        <div className="page-content">
-          {children}
+                <main className="page-content">
+                    {children}
+                </main>
+
+            </div>
+
         </div>
-
-      </div>
-
-    </div>
-  );
+    );
 }
 
 export default MainLayout;

@@ -1,42 +1,39 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "../../css/Sidebar.css";
+import "../../css/layout/Sidebar.css";
 
 function Sidebar() {
-  return (
-    <aside className="sidebar">
+    return (
+        <aside className="sidebar">
 
-      <div className="sidebar-logo">
-        <h2>Pro Hire</h2>
-      </div>
+            {/* <div className="sidebar-logo">
+                <h2>ProHire</h2>
+            </div> */}
 
-      <nav className="sidebar-menu">
+            <nav className="sidebar-menu">
 
-        <NavLink to="/users">
-          User List
-        </NavLink>
+                <NavLink
+                    to="/backend-coordinator"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    Backend Coordinator
+                </NavLink>
 
-        {/* <NavLink to="/teams">
-          Team Master
-        </NavLink>
+                <NavLink
+                    to="/user-management"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    User Management
+                </NavLink>
 
-        <NavLink to="/designations">
-          Designation Master
-        </NavLink> */}
+            </nav>
 
-      </nav>
-
-      <div className="sidebar-footer">
-        <button onClick={() => {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
-        }}>
-          Logout
-        </button>
-      </div>
-
-    </aside>
-  );
+        </aside>
+    );
 }
 
 export default Sidebar;

@@ -1,139 +1,121 @@
-// import { useState } from "react";
-// import {
-//   Users,
-//   Mail,
-//   LockKeyhole,
-//   Eye,
-//   EyeOff,
-// } from "lucide-react";
+import {useState} from 'react';
+import "../css/Login.css";
+import { FaEnvelope, FaLock,  FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
-// import { Link } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
-// import "../css/Login.css";
+function Login() {
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+  
+    const handleLogin = async()=>{
+       
+        setError("");
+        if(email === "" || password === ""){
+            setError("Please fill in all fields");
+            return;
+        }
+        //email validation regex pattern
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-// function Login() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [showPassword, setShowPassword] = useState(false);
-//   const [rememberMe, setRememberMe] = useState(false);
+        if (!emailPattern.test(email)) {
+            setError("Please enter a valid email address");
+            return;
+        }
 
-//   const handleLogin = (event) => {
-//     event.preventDefault();
 
-//     console.log("Email:", email);
-//     console.log("Password:", password);
-//     console.log("Remember me:", rememberMe);
-//   };
+        //password validation regex pattern
+        const passwordPattern =
+           /^.{8,}$/;
 
-//   return (
-//     <div className="login-page">
-//       <div className="login-card">
+        if (!passwordPattern.test(password)) {
+            setError(
+                "Password must contain uppercase, lowercase, number, special character and minimum 8 characters"
+            );
+            return;
+        }
+        // Backend API call
+    try {
+    console.log("Login API Calling...");
 
-//         {/* Pro Hire Logo */}
-//         <div className="login-header">
-//           <Users className="logo-icon" />
+    const response = await loginUser({
+        email: email,
+        password: password
+    });
 
-//           <h1>
-//             Pro <span>Hire</span>
-//           </h1>
+    console.log("Backend Response:", response);
+    console.log("Response Data:", response.data);
 
-//           <p className="brand-subtitle">
-//             Recruiter Management System
-//           </p>
-//         </div>
 
-//         {/* Login Title */}
-//         <div className="login-title">
-//           <h2>Sign In</h2>
+    alert("Login successful!");
+    navigate("/backend-coordinator");
 
-          
-//         </div>
+} catch (error) {
+    console.log("Login Error:", error);
+    console.log("Error Response:", error.response);
 
-//         {/* Login Form */}
-//         <form onSubmit={handleLogin}>
+    setError(
+        error.response?.data?.message ||
+        "Invalid email or password"
+    );
+}
+    };
+    return(
+        <div className="login-container">
+            <div className="login-card">
+                <h1>Welcome to ProHire</h1>
+                <p>Login to your ProHire account</p>
+                <div className="input-group">
+                    <div className="input-field">
+                            <FaEnvelope />
+                            <input type="email" placeholder="Enter your email" 
+                                   value={email}
+                                   onChange={(e)=> setEmail(e.target.value)}/>
+                     </div>
 
-//           {/* Email Input */}
-//           <div className="input-group">
-//             <Mail className="input-icon" />
 
-//             <input
-//               type="email"
-//               placeholder="Email address"
-//               value={email}
-//               onChange={(event) =>
-//                 setEmail(event.target.value)
-//               }
-//               required
-//             />
-//           </div>
+                    <div className="input-field">
+                        <FaLock />
+                        <input
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Enter the password"
+                                value={password}
+                                onChange={(e)=> setPassword(e.target.value)}/>
+                        <button type="button" className="password-toggle"
+                                onClick={() => setShowPassword(!showPassword)} >
+                            {showPassword ? <FaEye /> : <FaEyeSlash />}
+                        </button>
+                    </div>
 
-//           {/* Password Input */}
-//           <div className="input-group">
-//             <LockKeyhole className="input-icon" />
 
-//             <input
-//               type={showPassword ? "text" : "password"}
-//               placeholder="Password"
-//               value={password}
-//               onChange={(event) =>
-//                 setPassword(event.target.value)
-//               }
-//               required
-//             />
+                     <div className="login-options">
 
-//             <button
-//               type="button"
-//               className="password-toggle"
-//               onClick={() =>
-//                 setShowPassword(!showPassword)
-//               }
-//               aria-label={
-//                 showPassword
-//                   ? "Hide password"
-//                   : "Show password"
-//               }
-//             >
-//               {showPassword ? <EyeOff /> : <Eye />}
-//             </button>
-//           </div>
+                        <div className="remember-me">
+                            <input type="checkbox" checked={rememberMe}
+                              onChange={(e) => setRememberMe(e.target.checked)} />
+                            <span>Remember me</span>
+                        </div>
 
-//           {/* Remember Me and Forgot Password */}
-//           <div className="login-options">
+                       <Link to="/forgot-password">Forgot password?</Link>
 
-//             <label className="remember-me">
-//               <input
-//                 type="checkbox"
-//                 checked={rememberMe}
-//                 onChange={(event) =>
-//                   setRememberMe(event.target.checked)
-//                 }
-//               />
+                    </div>
+                     {error && <p className="error-message">{error}</p>}
+                    <button type="submit" onClick={handleLogin}>
+                        Login
+                        
+                        </button>
+                </div>
+            </div>
 
-//               <span>Remember me</span>
-//             </label>
 
-//             <a href="/forgot-password">
-//               Forgot Password?
-//             </a>
+        </div>
+    );
 
-//           </div>
 
-//           {/* Login Button */}
-//           <button type="submit" className="login-button">
-//             Login
-//           </button>
-
-          
-//             <div className="login-footer">
-//               <span>Don't have an account?</span>
-//               <Link to="/signup">Sign Up</Link>
-//             </div>
-
-//         </form>
-
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Login;
+}
+export default Login;
