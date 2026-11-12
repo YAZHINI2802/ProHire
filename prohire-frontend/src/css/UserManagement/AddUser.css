@@ -1,0 +1,155 @@
+
+/* MODAL OVERLAY */
+.um-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+/* MODAL BOX */
+.um-modal {
+    width: 450px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+    animation: modalOpen 0.25s ease;
+}
+
+/* MODAL HEADER */
+.um-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.um-modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+}
+
+/* CLOSE BUTTON */
+.um-modal-header .um-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    color: #777777;
+
+    padding: 4px;
+    cursor: pointer;
+}
+
+.um-modal-header .um-close-btn:hover {
+    color: #571276;
+}
+
+/* USER FORM */
+.um-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* FORM GROUP */
+.um-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.um-form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+}
+
+.um-form-group input,
+.um-form-group select {
+    width: 100%;
+    padding: 10px 12px;
+
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+
+    font-size: 14px;
+    outline: none;
+
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.um-form-group input:focus,
+.um-form-group select:focus {
+    border-color: #571276;
+}
+
+/* FORM ACTIONS */
+.um-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.um-form-actions button {
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+/* CANCEL BUTTON */
+.um-cancel-btn {
+    background: #eeeeee;
+    color: #333333;
+}
+
+/* ADD USER BUTTON */
+.um-save-btn {
+    background: #571276;
+    color: #ffffff;
+}
+
+.um-save-btn:hover {
+    background: #42105a;
+}
+
+/* POPUP ANIMATION */
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .um-modal {
+        width: 100%;
+        padding: 18px;
+    }
+}

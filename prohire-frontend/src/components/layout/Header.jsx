@@ -14,7 +14,7 @@ function Header() {
 
                 <div className="brand-details">
                     <h2>ProHire</h2>
-                    <p>Recruitment Workspace</p>
+                    <p>Recruitment Management</p>
                 </div>
             </div>
 
@@ -22,9 +22,9 @@ function Header() {
 
                 <span className="user-role">Backend Manager</span>
 
-                <button className="notification-btn">
+                {/* <button className="notification-btn">
                     <FaBell />
-                </button>
+                </button> */}
 
                 <div className="header-profile">
 

@@ -4,7 +4,9 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import "../../css/layout/MainLayout.css";
 
+
 function MainLayout({ children }) {
+   
     return (
         <div className="main-layout">
 
